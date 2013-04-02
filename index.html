@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Ad Operations Overview for Developers</title>
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+		<!-- <script src="js/fathom.min.js"></script> -->
+		<script src="js/fathom.js"></script>
+		
+		<script>
+		$(document).ready(function(){
+			
+			var fathom = $('#presentation').fathom({
+				dislayMode: 'single',//multi or single
+			  	//margin: 400,
+				onActivateSlide: function() {
+					var $slide = $(this);
+					$slide.find('pre:first').focus();
+
+				}
+			});
+		});
+			
+		</script>
+		<style>
+		body {
+			background: #444; 
+			font-family: Helvetica, Arial, sans-serif;
+		}
+		a {color: #ff3333;}
+		p {
+			margin: 5px 0;
+		} 
+		code {margin: 0px; padding: 0; font-size: 90%; font-family: courier; color: #00FF00;}
+		pre {margin: 5px 0 15px 0; padding: 5px 10px; background-color: #000;}
+		li em {color: #9ED7FF; font-weight: bold; font-style: normal; list-style: none; line-height: 100%;}
+		li p {color: #eee; font-weight: normal; line-height: 110%; width: 80%;}
+		li img {display: block; margin-top: 10px;margin-bottom: 10px;}
+		ul {margin: 0; list-style-type: none;}
+		ul li {line-height: 125%; margin: 5px 0;}
+		ul li ul li { font-size: 95%; line-height: 115%; margin: 5px 0;}
+		
+		#presentation {}
+		#presentation .slide {
+			/* background: #ededed; */
+			padding: 20px;
+			/* border: 2px solid #ddd; */
+			color: #eee;
+		}
+		#presentation .slide h1 {
+			font-size: 120%;
+			color: #eee;
+			text-align: center;
+			margin-left: auto; margin-right: auto;
+			/* width: 75%; */
+			padding: 10px 15px;
+			background: #666;
+		}
+		.center {text-align: center;}
+		</style>
+</head>
+<body>
+
+<div id="presentation">
+
+	<div class="slide">
+	  <h1>SNI Ad Operations: A primer for developers</h1>
+	<p class='center'><img src="http://adimages.scrippsnetworks.com/test/rich/dev-staging-test-ad-300.jpg" /></p>
+	</div>
+
+	<div class="slide">
+	  <h1>Who Am I <em>(and why am I talking about ads?)</em></h1>
+	  <ul>
+	    <li><em>Background: </em>
+		<ol>
+			<li>Designer</li>
+			<li>Developer</li>
+			<li>Ad Ops Mgr</li>
+			<li>FEE Mgr</li>
+		</ol>
+	 </il>
+	    <li>
+	<em>Where do FEE and Ad Ops overlap?</em>
+	<p>When a page loads, it is pulling in markup from the edge server: doc head with style and script calls, mdManager data, major and minor content containers, omniture function calls and of course ad function calls. It's entirely possible and indeed happens regularly that an undesirable interaction occurs between some element in the DOM that's been introduced via the cms and that's been introduced via the adserver.  This could be a visual, behavioral, or performance issue, and requires identification of the issue, routing to correct team, the fix, and confirmation.</p>
+	 </li>
+	  </ul>
+	</div>
+
+	<div class="slide">
+	<h1>What does the ad operations do?</h1>
+	<p>Ad Operations is the technical end of Ad Sales. They have teams that work on pricing out Scripps sites' content, tracking how much inventory there is, how much is sold and still available... teams that take in data on what ads served and issue billing to the advertisers so everyone gets paid... and a team that sets up the ads themselves, handles ad troubleshooting, ad integration and internal tools to facilitate all the above processes.</p>
+	<ul>
+		<li><em>Pricing & Inventory:</em><p>Want to know how much we made on Foodnetwork.com last week on advertising?  How about analyzing the revenue impact felt from the tweaks to photogallery or video player products your team made last month?  These guys could help. </p></li>
+		<li><em>Billing:</em> <p>Every sales team member submits reporting for each of their advertisers that shows how many ads @ what rate have served. Billing turns this around and issues invoices to the advertisers as well as balancing the books and ensuring compliance with financial regulations. Keeps us out of prison...</p></li>
+		<li><em>Traffic:</em> <p>This team has the most overlap with our technical teams.  They review thousands of ad creatives a week, turning away problematic ad creative, analyzing third party responses for performance and content.  They set up ads against targeting parameters, priority, timing (can schedule down to the minute, do day parting, recurring timeframes, etc.)  They also do adserver integrations, ie. adding javascript libraries, function calls and containers for ads, targeting configuration, etc. When we have a new site, a partner site, or a redesign there's typically a lot of work in this area to do.</p></li>
+	</ul>
+	</div>
+
+	<div class="slide">
+	<h1>What software is used?</h1>
+	<ul>
+		<li><em>Sharepoint</em></li>
+		<li><em>Salesforce.com</em></li>
+		<li><em>Solbright</em></li>
+		<li><em>Doubleclick:</em> <p>this is the ad server itself. Scripps uses Dart Enterprise, which means that Scripps owns the servers and the data but in turn must maintain the servers and the database.  Enterprise is hugely configurable and very powerful, and has allowed Scripps to do things with its sites and the adserver that most ad server vendors would not accommodate. </p></li>
+		<li><em>Ad Marvel:</em> <p>one of the mobile ad serving platforms.  Serves to only two mobile properties at this time: DIY to GO and the Foodnetwork.com WAP site.</p></li>
+		<li><em>Medialets:</em> <p>one of the mobile ad serving platforms.  The new mobile adserveing platform.</p></li>
+		
+		<li><em>Charles HTTP Proxy</em></li>
+		<li><em>Firebug</em></li>
+		<li><em>Mockingbird:</em> <p>In-house tool used to build, test, hand off for approval, hand off for ad serving.</p></li>
+		<li><em>Preroll Generator:</em> <p>Used to create the markup we serve to Snap and legacy players. Takes in params like video file location, tracking pixels, clicktags, bigbox sync ad call parameters, and generates a snippet of markup that Snap ingests.  Snap then calls the preroll asset, triggers the tracking at appropriate events, and calls Doubleclick for the sync bigbox, inserting it into the bigbox container on the page as an iframe.</p></li>
+	</ul>
+	</div>
+
+
+	<div class="slide">
+	<h1>Lifecycle of ad:</h1>
+	<ul>
+		<li>Pricing & Inventory + Ad Sales Marketing ==></li>
+		<li>Sales Team (execs, managers, planners, assistants) ==></li>
+		<li>Traffic Team (set up and serve the ad) ==></li>
+		<li>Site staff (reporting ad behavior/content issues) ==></li>
+		<li>Sales Team / Ad ops (optimization/troubleshooting/reporting) ==></li>
+		<li>Billing $$$</li>
+	</ul>
+	</div>
+	
+	<div class="slide">
+		<h1>Handy links:</h1>
+		<ul>
+			<li><em><a href="http://www.scrippsinteractive.com">http://www.scrippsinteractive.com/</a></em><p>This site details the types of ad units available to be sold and deployed on our sites, and the specs to which they are held accountable.</p></li>
+			<li><em><a href="http://adops.scrippsnetworks.com/manual/index.asp">http://adops.scrippsnetworks.com/manual/index.asp</a></em><p>This is a training manual for ad operations team members. It details things from a tech perspective.</p></li>
+			<li><em><a href="http://adops.scrippsnetworks.com/index.asp">http://adops.scrippsnetworks.com/index.asp</a></em><p>This is a training manual for ad sales team members. It details things from a non-technical, sales oriented perspective.</p></li>
+		</ul>
+	</div>
+
+	<div class="slide">
+	<h1>Pieces and Parts – Adserving Infrastructure</h1>
+	<ul>
+		<li><em>Ad Library</em>
+			<p>Each site ingests javascript that defines HOW the Scripps ads function. We'll use HGTV as an example.</p>
+			<code><pre>	&lt;script src="http://www.sndimg.com/common/js/sni-core/sni-core.2.0.js" type="text/javascript"&gt;
+	&lt;script type="text/javascript" src="http://hgtv.sndimg.com/webhgtv/hg20/js/sni-hgtv.2.0.js"&gt;</pre></code></li>
+		<li><em>Ad Restrictions</em><p>Each site ingests a script that allows the ad operations team to prevent the function calls for any given ad on the pgae from firing. This gives them control to micromanage any scope of content on a site without editorial or developer intervention.  For example, they might reduce 5 ad calls to a single one on the Dream Home landing page during the winner reveal period of time, in order to reduce the hit on the adserver or to speed up load time during a critical period. Another example would be to turn on and off a leaderboard ad on section fronts during changes in inventory demand. </p>
+			<code><pre>	&lt;script type="text/javascript" src="http://www.sndimg.com/common/adimages/networkads/hgtv/prod/adRestriction.js"&gt;</pre></code></li>
+		<li><em>MdManager</em><p>MdManager is the object that carries 'aboutness' information for a given page. Among other things Omniture and the Ad Server use this data.<p><code><pre>
+	var mdManager = new MetaDataManager();
+	mdManager.addParameter("Url", "/hgtv/home/0,1000137,,00.html");
+	mdManager.addParameter("Role", "");
+	mdManager.addParameter("Title", "HGTV - Decorating, Outdoor Rooms, Landscaping Ideas, Kitchen and Bathroom Design");
+	mdManager.addParameter("Keywords", "");
+	mdManager.addParameter("Site", "HGTV");
+	mdManager.addParameter("SctnId", "32656");
+	mdManager.addParameter("DetailId", "32656");
+	mdManager.addParameter("PageNumber", "1");
+	mdManager.addParameter("AdKey1", "");
+	mdManager.addParameter("AdKey2", "");
+	mdManager.addParameter("Channel", "");
+	mdManager.addParameter("TalentName", "");
+	mdManager.addParameter("Source", "");
+	mdManager.addParameter("ContentTag1", "");
+	mdManager.addParameter("ContentTag2", "");
+	mdManager.addParameter("SctnName", "HOME");
+	mdManager.addParameter("SctnNameLineage", "HOME,HGTV");
+	mdManager.addParameter("Show_Abbr", "");
+	mdManager.addParameter("CategoryDspName", "HOME");
+	mdManager.addParameter("Classification", "HOME,HGTV");
+	mdManager.addParameter("SctnDspName", "HOME");
+	mdManager.addParameter("Sponsorship", "");
+	mdManager.addParameter("Type", "SECTION");
+	mdManager.addParameter("UniqueId", "HGTV-SECTION-32656-1");</pre></code>
+		</li>
+	</ul>
+	</div>
+
+	<div class="slide">
+	<h1>Ad calls</h1>
+	<ul>
+		<li>Leaderboard
+			<code><pre>LeaderboardAd(1);</code></pre>	
+		</li>
+		<li>Pushdown/Brandscape
+			<code><pre>PushdownAd(1);</pre></code>
+		</li>
+		<li>Bigbox (5, 6, 7)	
+			<code><pre>BigboxAd(5);</code></pre>
+		</li>
+		<li>Multilogo (1-4)
+			<img src="img/multilogo.png" />
+			<code><pre>MultiLogoAd('LOGO',4);</code></pre>
+		</li>
+		<li>300x150 (sponsorship module)
+			<img src="img/300x150.png" />
+			<code><pre>BigboxAd300x150();</code></pre>	
+		</li>
+		<li>Superstitial 2<p>The superstitial ads typically are used to inject behind the scenes elements into a page. Research surveys, etc. They are also used to launch pop-under ads, like the Netflix ads everyone knows and loves.</p>
+			<code><pre>SuperstitialAd(2);</code></pre>
+		</li>
+		<li>Superstitial 3	<code><pre>SuperstitialAd(3);</code></pre>
+		</li>
+	</ul>
+	</div>
+	
+
+	<div class="slide">
+	<h1>Edge Cases</h1>
+	<ul>
+		<li><em>Content integration</em><p>An ad-served product that's harder to identify and troubleshoot is known as sponsored content integration. Sometimes called RSI, for recipe sponsored integration... Essentially it involves using an ad call/response to insert content into the page. This is often a multipart effort.. identifying markup containers already on the page (or creating them on the fly), ingesting data via xml document, parsing the xml and ingesting image assets, links, tracking, etc. and then dropping that parsed content into the containers located or created. <img src="img/rsi.jpg"></p></li>
+		<li><em>Ad related markup containers</em><p>This list item is located in the search results, empty at pageload and filled via the ad served RSI code when the big box ad serves: <code><pre>&lt;li id="sponsorCtr2" class="clrfix thumb"&gt; &lt;/li &gt; </code></pre></p>
+		</li>
+	</ul>
+	</div>
+
+	<div class="slide">
+	<h1>Troubleshooting</h1>
+	<ul>
+		<li><em>Using Charles/Firebug to diagnose</em><p>It's very handy to use Charles Proxy tool to analyze the requests and responses coming from the adserver, aka 'http://adsremote.scrippsnetworks.com'.  There are two methods you'll see: js.ng and html.ng.  Js.ng stands for javascript netgravity, and means that the request you are making to the adserver will result in a javascript formatted response, ala doc.write.</p>
+			<p><strong>Html.ng</strong> refers to the response to an ad call being delivered as an html document. It's common practice to set the source of a dynamically created iframe to an html.ng ad call. This is how video sync ads and photogallery sync ads are handled, in fact.</p><img src="img/charles.png" /></li>
+		<li><em>Ads that obscure content or navigation</em><p>A bigbox ad that exists in a z-index slot in front of site navigation or content is a problem, and one that happens fairly frequently. it's largely out of the control of ad ops since about 75% of the ads they serve are third party and can be changed out with problematic ad creative at any time.  It's a matter of making them aware so they can police the third party via contact with the sales representative for the advertiser in question.</p></li>
+		<li><em>Wrong sized ads for ad spot</em><p>If you see a leaderboard in a bigbox, vice versa, or any other incorrect placement, there's some info that you can capture and provide to service desk or the ad ops group that will make finding and fixing the ad take much less time & effort.  Without information, finding a problem ad is looking for needles in haystacks.</p>
+			<p>If you can capture the problem ad's request and response in Charles the response will contain identifier information as follows: &lt;!-- 12Sep14_HGRM_Delta_Faucets_300x600_Pref_Dart.html--&gt;  This naming convention conveys the date trafficked, site, advertiser, ad tyupe, and if the ad is a third party ad it will convey the 3rd party ad vendor that's actually serving the final ad response.</p></li>
+		<li><em>Missing ads</em><p>Ads can be visually missing from the page for a number of reasons. It's essential to determine what's behind the issue in order to address it.</p>
+			<ul>
+				<li>- page is missing function call</li>
+				<li>- ad response is present, but nothing renders</li>
+				<li>- valid ad request, invalid or empty adserver response</li>
+			</ul>
+		</li>
+	</ul>
+	</div>
+
+	<div class="slide">
+		<h1>Who to contact and how</h1>
+		<ul>
+			<li><em>Service Desk is a safe bet for any ad issues. </em><p>They'll be routed to the Ad Ops team or to a Matrix team, depending on what the issue is and how accurate Service Desk is in routing the issue given the information they've been provided.  </p>
+				<p>That said, if you already know where it should go you can help them route the issue, provide the necessary information and give the receiving team a heads up.</p></li>
+			<li>Inappropriate content of ads: Ad Operations -> DL_adserverNetworks@scrippsnetworks.com</li>
+			<li>Broken ads/misbehaving ads or tracking pixels: Ad Operations</li>
+			<li>Missing ad function calls from text elements:  Account Services / Digital Production (Bridget Sweetin, Mariel Clark, Rich Lee)</li>
+			<li>Missing html containers in text elements needed to house ad content: Account Services / Digital Production contacts (Bridget Sweetin, Mariel Clark, Rich Lee)</li>
+		</ul>
+	</div>
+	
+	<div class="slide">
+		<h1>Closing thoughts</h1>
+		<ul>
+			<li>Ads on our sites are here to stay. They provide the majority of the revenue for the Digital group and the metrics around ad serving are a primary measurement of site success. </li>
+			<li>The ad ops team has a fairly limited amount of wiggle room when it comes to what they can do to optimize site performance, user experience, etc.  However, they are very much interested in providing users value and in providing customers with better ways to advertise: namely ways to make the ads more relevant to particular users, ways to integrate advertisers with our content in a manner that helps both parties and harms neither... and improving site performance without compromising the revenue stream.</li>
+		</ul>
+	</div>
+  
+</div>
+
+
+</body>
+</html>
